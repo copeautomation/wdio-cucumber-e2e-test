@@ -26,3 +26,49 @@ Then(/^URL should match (.*)$/, async function (expectedURL) {
     let url = await browser.getUrl()
     chai.expect(url).to.equal(expectedURL)
 })
+/**
+ * Web Interactions
+ */
+Given(/^A web page is opened$/, async function () {
+    await browser.url("/inputs")
+    await browser.setTimeout({ implicit: 15000, pageLoad: 10000 })
+    // await browser.maximizeWindow()
+})
+
+When(/^Perfom web interactions$/, async function () {
+    /**
+     * 1. Input box
+     * Actions:
+     * 1. Type into input box
+     * 2. Clear the field and type or just addvalue
+     * 3. Click and type
+     * 4. Slow typiing
+     * 
+     */
+    //     let num = 12345
+    //     let strNum = num.toString()
+
+    //     let ele = await $(`[type=number]`)
+    //    // await ele.setValue(strNum)
+    //     await ele.click()
+    //     for (let i = 0; i < strNum.length; i++) {
+    //         let charStr = strNum.charAt(i)
+    //         await browser.pause(1000)
+    //         await browser.keys(charStr)
+    //     }
+
+    /**
+     * 2. Dropdown
+     * Actions:
+     * 1. Assert default option is selected
+     * 2. Select by attribute, text, index 
+     * 3. Get a list of options
+     */
+
+
+
+
+    await browser.debug()
+
+
+})
