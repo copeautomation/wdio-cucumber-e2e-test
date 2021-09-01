@@ -30,7 +30,7 @@ Then(/^URL should match (.*)$/, async function (expectedURL) {
  * Web Interactions
  */
 Given(/^A web page is opened$/, async function () {
-    await browser.url("/upload")
+    await browser.url("/")
     await browser.setTimeout({ implicit: 15000, pageLoad: 10000 })
     // await browser.maximizeWindow()
 })
@@ -169,10 +169,34 @@ When(/^Perfom web interactions$/, async function () {
     /**
     * 5. File upload
     */
-    await $(`#file-upload`).addValue(`${process.cwd()}/data/fileupload/dummy.txt`)
-    await $('#file-submit').click()
+    // await $(`#file-upload`).addValue(`${process.cwd()}/data/fileupload/dummy.txt`)
+    // await $('#file-submit').click()
+
+    /**
+     * 6. Frames
+     * Methods used:
+     * 1. switchToFrame
+     * 2. switchToParentFrame
+     */
+    // await $(`=iFrame`).click()
+    // let ele = await $(`#mce_0_ifr`)
+    // await browser.switchToFrame(ele)
+    // // Interaction with frames...
+    // await $(`#tinymce`).click()
+    // await browser.keys(["Meta", "A"])
+    // await browser.pause(1000)
+    // await browser.keys("Delete")
+    // await $(`#tinymce`).addValue(`Typing into a frame...`)
+    // await browser.switchToParentFrame()
+
+    /**
+     * 7. Basic scrolling
+     * Methods: (Element methods)
+     * 1. scrollIntoView
+     * 
+     */
+    await $('span=Best Sellers in Books').scrollIntoView()
 
     await browser.debug()
-
 
 })
