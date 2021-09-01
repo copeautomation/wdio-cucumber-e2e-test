@@ -30,7 +30,7 @@ Then(/^URL should match (.*)$/, async function (expectedURL) {
  * Web Interactions
  */
 Given(/^A web page is opened$/, async function () {
-    await browser.url("/windows")
+    await browser.url("/upload")
     await browser.setTimeout({ implicit: 15000, pageLoad: 10000 })
     // await browser.maximizeWindow()
 })
@@ -118,34 +118,61 @@ When(/^Perfom web interactions$/, async function () {
     */
 
     // Open new windows
-    await $(`=Click Here`).click()
-    await $(`=Elemental Selenium`).click()
-    let currentWinTitle = await browser.getTitle()
-    let parentWinHanle = await browser.getWindowHandle()
-    console.log(`>> currentWinTitle: ${currentWinTitle}`);
+    // await $(`=Click Here`).click()
+    // await $(`=Elemental Selenium`).click()
+    // let currentWinTitle = await browser.getTitle()
+    // let parentWinHanle = await browser.getWindowHandle()
+    // console.log(`>> currentWinTitle: ${currentWinTitle}`);
 
-    // Switch to specific window
-    let winHandles = await browser.getWindowHandles()
-    for (let i = 0; i < winHandles.length; i++){
-        console.log(`>> Win handle: ${winHandles[i]}`);
-        await browser.switchToWindow(winHandles[i])
-        currentWinTitle = await browser.getTitle()
-        if (currentWinTitle === "Elemental Selenium: Receive a Free, Weekly Tip on Using Selenium like a Pro"){
-            await browser.switchToWindow(winHandles[i])
-            let headerTxtEleSel = await $(`<h1>`).getText()
-            console.log(`>> headerTxtEleSel: ${headerTxtEleSel}`);
-            // Rest of the actions go here....
-            break
-        }
-    }
+    // // Switch to specific window
+    // let winHandles = await browser.getWindowHandles()
+    // for (let i = 0; i < winHandles.length; i++){
+    //     console.log(`>> Win handle: ${winHandles[i]}`);
+    //     await browser.switchToWindow(winHandles[i])
+    //     currentWinTitle = await browser.getTitle()
+    //     if (currentWinTitle === "Elemental Selenium: Receive a Free, Weekly Tip on Using Selenium like a Pro"){
+    //         await browser.switchToWindow(winHandles[i])
+    //         let headerTxtEleSel = await $(`<h1>`).getText()
+    //         console.log(`>> headerTxtEleSel: ${headerTxtEleSel}`);
+    //         // Rest of the actions go here....
+    //         break
+    //     }
+    // }
 
-    // browser.switchWindow()
-    // Switch back to parent window
-    await browser.switchToWindow(parentWinHanle)
-    let parentWinHeaderTxt = await $(`<h3>`).getText()
-    console.log(`>> parentWinHeaderTxt: ${parentWinHeaderTxt}`);
-    // Continue with rest of the execution..
+    // // browser.switchWindow()
+    // // Switch back to parent window
+    // await browser.switchToWindow(parentWinHanle)
+    // let parentWinHeaderTxt = await $(`<h3>`).getText()
+    // console.log(`>> parentWinHeaderTxt: ${parentWinHeaderTxt}`);
+    // // Continue with rest of the execution..
+
+    /**
+    * 4. Handling alerts
+
+    * Methods used:
+    * 1. isAlertOpen()
+    * 2. acceptAlert()
+    * 3. dismissAlert()
+    * 4. getAlertText()
+    * 5. sendAlertText()
+    */
+    // await $(`button=Click for JS Prompt`).click()
+    // if (await browser.isAlertOpen()) {
+    //     let alertText = await browser.getAlertText()
+    //     console.log(`>> alertText: ${alertText}`);
+    //     await browser.sendAlertText(`Hello JS Prompt...`)
+    //     await browser.acceptAlert()
+    //     await browser.pause(2000)
+
+    // }
+
+    /**
+    * 5. File upload
+    */
+    await $(`#file-upload`).addValue(`${process.cwd()}/data/fileupload/dummy.txt`)
+    await $('#file-submit').click()
 
     await browser.debug()
+
 
 })
