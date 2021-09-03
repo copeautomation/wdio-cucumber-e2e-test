@@ -7,6 +7,7 @@ Given(/^Google page is opened$/, async function () {
     await browser.url("https://www.google.com")
     await browser.pause(1000)
     console.log(`After opening browser...`);
+    console.log(`>> BrowserObj: ${JSON.stringify(browser)}`);
 })
 
 When(/^Search with (.*)$/, async function (searchItem) {
@@ -14,6 +15,7 @@ When(/^Search with (.*)$/, async function (searchItem) {
     let ele = await $(`[name=q]`)
     await ele.setValue(searchItem)
     await browser.keys("Enter")
+    console.log(`>> Ele obj: ${JSON.stringify(ele)}`);
 })
 
 Then(/^Click on the first search result$/, async function () {

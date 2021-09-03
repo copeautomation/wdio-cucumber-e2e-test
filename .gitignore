@@ -2,6 +2,7 @@
 allure-results
 debug
 .DS_Store
+data
 # Logs
 logs
 *.log
