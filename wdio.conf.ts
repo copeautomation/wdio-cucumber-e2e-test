@@ -58,7 +58,7 @@ export const config: WebdriverIO.Config = {
         //
         browserName: 'chrome',
         acceptInsecureCerts: true,
-        timeouts: { implicit: 15000, pageLoad: 20000, script: 30000 },
+        timeouts: { implicit: 10000, pageLoad: 20000, script: 30000 },
         // If outputDir is provided WebdriverIO can capture driver session logs
         // it is possible to configure which logTypes to include/exclude.
         // excludeDriverLogs: ['*'], // pass '*' to exclude all driver session logs
