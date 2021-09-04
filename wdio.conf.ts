@@ -57,6 +57,9 @@ export const config: WebdriverIO.Config = {
         maxInstances: 5,
         //
         browserName: 'chrome',
+        "goog:chromeOptions": {
+            args: ["--disable-web-security"]
+        },
         acceptInsecureCerts: true,
         timeouts: { implicit: 10000, pageLoad: 20000, script: 30000 },
         // If outputDir is provided WebdriverIO can capture driver session logs
@@ -160,7 +163,7 @@ export const config: WebdriverIO.Config = {
         // <boolean> fail if there are any undefined or pending steps
         strict: false,
         // <string> (expression) only execute the features or scenarios with tags matching the expression
-        tagExpression: '@demo',
+        tagExpression: '',
         // <number> timeout for step definitions
         timeout: 300000,
         // <boolean> Enable this config to treat undefined definitions as warnings.
