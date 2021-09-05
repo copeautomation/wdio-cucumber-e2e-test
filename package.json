@@ -4,8 +4,8 @@
   "description": "wdio e2e tests",
   "main": "index.js",
   "scripts": {
-    "demo": "npx wdio wdio.conf.ts --cucumberOpts.tagExpression='@demo'",
-    "smoke": "npx wdio wdio.conf.ts --cucumberOpts.tagExpression='@smoke'"
+    "demo": "export HEADLESS=N && npx wdio wdio.conf.ts --cucumberOpts.tagExpression='@demo'",
+    "smoke": "export HEADLESS=Y &&npx wdio wdio.conf.ts --cucumberOpts.tagExpression='@smoke'"
   },
   "keywords": [
     "wdio",

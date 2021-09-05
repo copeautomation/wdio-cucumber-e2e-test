@@ -1,3 +1,5 @@
+let headless = process.env.HEADLESS
+console.log(`>> The headless flag: ${headless}`);
 export const config: WebdriverIO.Config = {
     //
     // ====================
@@ -54,11 +56,22 @@ export const config: WebdriverIO.Config = {
         // maxInstances can get overwritten per capability. So if you have an in-house Selenium
         // grid with only 5 firefox instances available you can make sure that not more than
         // 5 instances get started at a time.
+        /**
+         * Additional chrome options:
+         * --headless
+         * --disable-dev-shm-usage
+         * --no-sandbox
+         * --window-size=1920,1080
+         * --disable-gpu
+         * --proxy-server=http://domain
+         * binary=<location>
+         * --auth-server-whitelist="_”
+         */
         maxInstances: 5,
         //
         browserName: 'chrome',
         "goog:chromeOptions": {
-            args: ["--disable-web-security"]
+            args: headless.toUpperCase() === "Y" ? ["--disable-web-security", "--headless", "--disable-dev-shm-usage", "--no-sandbox", "--window-size=1920,1080"] : []
         },
         acceptInsecureCerts: true,
         timeouts: { implicit: 10000, pageLoad: 20000, script: 30000 },
