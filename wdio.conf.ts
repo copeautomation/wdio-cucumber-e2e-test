@@ -1,5 +1,6 @@
+import dotenv from "dotenv"
+dotenv.config()
 let headless = process.env.HEADLESS
-console.log(`>> The headless flag: ${headless}`);
 export const config: WebdriverIO.Config = {
     //
     // ====================

@@ -1,5 +1,5 @@
 Feature: Inventory
-    @smoke
+    @demo @smoke
     Scenario Outline: Demo Inventory
         Given Login to inventory web app
         Then Inventory page should list <NumberOfProducts>
