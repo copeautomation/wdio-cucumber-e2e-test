@@ -4,7 +4,9 @@ import chai from "chai";
 Given(/^Login to inventory web app$/, async function () {
     console.log(`Test username: ${process.env.TEST_USERNAME}`);
     /** 1. Launch browser */
-    await browser.url("https://www.saucedemo.com")
+    // @ts-ignore
+    await browser.url(browser.config.sauseDemoURL)
+    console.log(`>> Test config values: ${JSON.stringify(browser.config)}`);
     // await browser.maximizeWindow()
 
     /**2. Login to inventory*/
