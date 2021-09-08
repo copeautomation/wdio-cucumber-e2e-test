@@ -1,7 +1,7 @@
 import { Then } from "@cucumber/cucumber";
 import chai from "chai";
 
-Then(/^Inventory page should list (.*)$/, async function (noOfProducts) {
+Then(/^Inventory page should (.*)\s?list (.*)$/, async function (negativeCheck, noOfProducts) {
 	if (!noOfProducts)
 		throw Error(`Invalid product count provided: ${noOfProducts}`);
 	let eleArr = await $$(`.inventory_item_name`);

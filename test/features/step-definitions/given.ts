@@ -1,8 +1,8 @@
 import { Given } from "@cucumber/cucumber";
 import chai from "chai";
 
-Given(/^Login to inventory web app$/, async function () {
-    console.log(`Test username: ${process.env.TEST_USERNAME}`);
+Given(/^As (a|an) (.*) user I login to inventory web app$/, async function (prefixTxt, userType) {
+    console.log(`>> The userType: ${userType}`);
     /** 1. Launch browser */
     // @ts-ignore
     await browser.url(browser.config.sauseDemoURL)
