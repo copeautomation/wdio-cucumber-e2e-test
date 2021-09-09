@@ -8,5 +8,5 @@ Feature: Demo feature
         Then URL should match <ExpectedURL>
 
         Examples:
-            | TestID     | SearchItem | ExpectedURL            |
+            | TestID     | SearchItem | ExpectedURL           |
             | DEMO_TC001 | WDIO       | https://webdriver.io/ |
