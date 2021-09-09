@@ -250,8 +250,14 @@ export const config: WebdriverIO.Config = {
      * Runs before a Cucumber Scenario.
      * @param {ITestCaseHookParameter} world world object containing information on pickle and test step
      */
-    // beforeScenario: function (world) {
-    // },
+    beforeScenario: function (world) {
+        let arr = world.pickle.name.split(/:/)
+        // @ts-ignore
+        if(arr.length > 0) browser.config.testid = arr[0]
+        // @ts-ignore
+        if(!browser.config.testid) throw Error(`Error getting testid for current scenario: ${world.pickle.name}`)
+
+    },
     /**
      *
      * Runs before a Cucumber Step.

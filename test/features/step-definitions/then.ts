@@ -2,7 +2,7 @@ import { Then } from "@cucumber/cucumber";
 import chai from "chai";
 
 Then(/^Inventory page should (.*)\s?list (.*)$/, async function (negativeCheck, noOfProducts) {
-    console.log(`>> The appid: ${this.appid}`);
+    console.log(`>> Starting ${this.testid}...`);
 	if (!noOfProducts)
 		throw Error(`Invalid product count provided: ${noOfProducts}`);
 	let eleArr = await $$(`.inventory_item_name`);
