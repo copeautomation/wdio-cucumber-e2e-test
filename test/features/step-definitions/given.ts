@@ -1,8 +1,9 @@
 import { Given } from "@cucumber/cucumber";
 import chai from "chai";
+import logger from "../../helper/logger"
 
 Given(/^As (a|an) (.*) user I login to inventory web app$/, async function (prefixTxt, userType, dataTable) {
-
+    logger.info(`${this.testid}: Started to login sause demo app...`)
     // Get the testid
     console.log(`>> Given step Test ID: ${this.testid}`);
     // Getting values from data table

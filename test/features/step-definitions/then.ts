@@ -1,5 +1,6 @@
 import { Then } from "@cucumber/cucumber";
 import chai from "chai";
+import logger from "../../helper/logger"
 
 Then(/^Inventory page should (.*)\s?list (.*)$/, async function (negativeCheck, noOfProducts) {
     console.log(`>> Starting ${this.testid}...`);
@@ -16,6 +17,7 @@ Then(/^Inventory page should (.*)\s?list (.*)$/, async function (negativeCheck, 
  * 3. Assert if any value is <=0
  */
 Then(/^Validate all products have valid price$/, async function () {
+    logger.info(`${this.testid}: Checking the price...`)
 	/**1. Get price list */
 	let eleArr = await $$(`.inventory_item_price`);
 	let priceStrArr = [];
