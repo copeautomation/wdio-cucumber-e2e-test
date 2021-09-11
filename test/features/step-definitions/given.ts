@@ -1,9 +1,9 @@
 import { Given } from "@cucumber/cucumber";
 import chai from "chai";
-import logger from "../../helper/logger"
+import reporter from "../../helper/reporter"
 
 Given(/^As (a|an) (.*) user I login to inventory web app$/, async function (prefixTxt, userType, dataTable) {
-    logger.info(`${this.testid}: Started to login sause demo app...`)
+    reporter.addStep(this.testid, "info", "Login to sause demo")
     // Get the testid
     console.log(`>> Given step Test ID: ${this.testid}`);
     // Getting values from data table
@@ -40,5 +40,5 @@ Given(/^As (a|an) (.*) user I login to inventory web app$/, async function (pref
     // await  browser.forward()
     // await browser.debug()
     this.appid =   "ABC123"
-
+    reporter.addStep(this.testid, "debug", "login is successful...")
 })

@@ -13,5 +13,5 @@ Feature: Inventory
 
         Examples:
             | TestID     | NumberOfProducts |
-            | INTV_TC001 |       6         |
+            | INTV_TC001 |       9         |
 
