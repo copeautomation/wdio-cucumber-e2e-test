@@ -5,7 +5,6 @@ import reporter from "../../helper/reporter"
 
 Then(/^Inventory page should (.*)\s?list (.*)$/, async function (negativeCheck, noOfProducts) {
     try {
-        console.log(`>> Starting ${this.testid}...`);
         if (!noOfProducts)
             throw Error(`Invalid product count provided: ${noOfProducts}`);
         let eleArr = await $$(`.inventory_item_name`);

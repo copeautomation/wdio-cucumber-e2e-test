@@ -1,6 +1,10 @@
 {
 	"compilerOptions": {
+        "target": "ES2019",
+        "module": "commonjs",
+        "resolveJsonModule": true,
         "esModuleInterop": true,
+        "suppressExcessPropertyErrors": true,
 		"types": [
 			"node",
 			"webdriverio/async",
