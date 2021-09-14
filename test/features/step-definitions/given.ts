@@ -16,3 +16,6 @@ Given(/^As (a|an) (.*) user I login to inventory web app$/, async function (pref
     }
 
 })
+Given(/^Get list of (.*) from reqres.in$/, async function (endpointRef) {
+
+})
