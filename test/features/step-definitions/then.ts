@@ -2,6 +2,8 @@ import { Then } from "@cucumber/cucumber";
 import chai from "chai";
 import logger from "../../helper/logger"
 import reporter from "../../helper/reporter"
+import fs from "fs"
+import nopCommerceCustlistPage from "../../page-objects/nopcommerce.custlist.page"
 
 Then(/^Inventory page should (.*)\s?list (.*)$/, async function (negativeCheck, noOfProducts) {
     try {
@@ -46,6 +48,53 @@ Then(/^Validate all products have valid price$/, async function () {
     let invalidPriceArr = priceNumArr.filter((ele) => ele <= 0);
     chai.expect(invalidPriceArr.length).to.equal(0);
 });
+/**
+ * Verify if given user exists in customers list
+ * Sub-steps:
+ * 1. Navigate/select Customer options from left menu
+ * 2. Read API response from /data folder
+ * 3. For each user object in API response
+ *  - Enter first name and last name 
+ *  - Search and confirm if user exists
+ * 4. In case user does not exist write it to error file
+ */
 Then(/^Verify if all users exist in customers list$/, async function () {
+
+    try {
+        /**1. Navigate/select Customer options from left menu*/
+        // @ts-ignore
+        await browser.url(`${browser.config.nopeCommerceBaseURL}/Admin/Customer/List`)
+        reporter.addStep(this.testid, "info", `Navigated to customer list screen...`)
+
+        /** 2. Read API response from /data folder*/
+        let filename = `${process.cwd()}/data/api-res/reqresAPIUsers.json`
+        let data = fs.readFileSync(filename, "utf8")
+        let dataObj = JSON.parse(data)
+
+        /**3. For each user object in API response */
+        let numOfObj = dataObj.data.length
+        let arr = []
+        for (let i = 0; i < numOfObj; i++) {
+            let obj = {}
+            let firstname = dataObj.data[i].first_name
+            let lastname = dataObj.data[i].last_name
+            let custNotFound = await nopCommerceCustlistPage.searchNameAndConfirm(this.testid, firstname, lastname)
+            if (custNotFound) {
+                obj["firstname"] = firstname
+                obj["lastname"] = lastname
+                arr.push(obj)
+            }
+        }
+
+        /**4. In case user does not exist write it to error file*/
+        if (arr.length > 1) {
+            let data = JSON.stringify(arr, undefined, 4)
+            let filepath = `${process.cwd()}/results/custNotFoundList.json`
+            fs.writeFileSync(filepath, data)
+        }
+    } catch (err) {
+        err.message = `${this.testid}: Failed at checking users in nopcommerce site, ${err.message}`
+        throw err
+    }
 
 })

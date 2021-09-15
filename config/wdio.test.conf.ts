@@ -4,5 +4,5 @@ export const config = Object.assign(baseConfig, {
     environment: "TEST",
     sauseDemoURL: "https://www.saucedemo.com",
     reqresBaseURL: "https://reqres.in",
-    nopeCommerceBaseURL: "https://admin-demo.nopcommerce.com/login"
+    nopeCommerceBaseURL: "https://admin-demo.nopcommerce.com"
 })
