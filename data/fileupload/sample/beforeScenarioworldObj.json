@@ -1,0 +1,212 @@
+{
+	"gherkinDocument": {
+		"feature": {
+			"tags": [],
+			"location": { "line": 1, "column": 1 },
+			"language": "en",
+			"keyword": "Feature",
+			"name": "Inventory",
+			"description": "",
+			"children": [
+				{
+					"scenario": {
+						"id": "13",
+						"tags": [
+							{
+								"location": { "line": 3, "column": 5 },
+								"name": "@demo",
+								"id": "10"
+							},
+							{
+								"location": { "line": 3, "column": 11 },
+								"name": "@smoke",
+								"id": "11"
+							},
+							{
+								"location": { "line": 3, "column": 18 },
+								"name": "@debug",
+								"id": "12"
+							}
+						],
+						"location": { "line": 4, "column": 5 },
+						"keyword": "Scenario Outline",
+						"name": "<TestID>: Demo Inventory",
+						"description": "",
+						"steps": [
+							{
+								"id": "4",
+								"location": { "line": 5, "column": 9 },
+								"keyword": "Given ",
+								"text": "As a standard user I login to inventory web app",
+								"dataTable": {
+									"location": { "line": 6, "column": 13 },
+									"rows": [
+										{
+											"id": "0",
+											"location": { "line": 6, "column": 13 },
+											"cells": [
+												{
+													"location": { "line": 6, "column": 15 },
+													"value": "UserType"
+												},
+												{
+													"location": { "line": 6, "column": 26 },
+													"value": "Username"
+												}
+											]
+										},
+										{
+											"id": "1",
+											"location": { "line": 7, "column": 13 },
+											"cells": [
+												{
+													"location": { "line": 7, "column": 15 },
+													"value": "StdUser"
+												},
+												{
+													"location": { "line": 7, "column": 26 },
+													"value": "standard_user"
+												}
+											]
+										},
+										{
+											"id": "2",
+											"location": { "line": 8, "column": 13 },
+											"cells": [
+												{
+													"location": { "line": 8, "column": 15 },
+													"value": "ProbUser"
+												},
+												{
+													"location": { "line": 8, "column": 26 },
+													"value": "problem_user"
+												}
+											]
+										},
+										{
+											"id": "3",
+											"location": { "line": 9, "column": 13 },
+											"cells": [
+												{
+													"location": { "line": 9, "column": 15 },
+													"value": "PerfUser"
+												},
+												{
+													"location": { "line": 9, "column": 26 },
+													"value": "performance_glitch_user"
+												}
+											]
+										}
+									]
+								}
+							},
+							{
+								"id": "5",
+								"location": { "line": 10, "column": 9 },
+								"keyword": "Then ",
+								"text": "Inventory page should list <NumberOfProducts>"
+							},
+							{
+								"id": "6",
+								"location": { "line": 11, "column": 9 },
+								"keyword": "Then ",
+								"text": "Validate all products have valid price"
+							}
+						],
+						"examples": [
+							{
+								"id": "9",
+								"tags": [],
+								"location": { "line": 14, "column": 9 },
+								"keyword": "Examples",
+								"name": "",
+								"description": "",
+								"tableHeader": {
+									"id": "7",
+									"location": { "line": 15, "column": 13 },
+									"cells": [
+										{
+											"location": { "line": 15, "column": 15 },
+											"value": "TestID"
+										},
+										{
+											"location": { "line": 15, "column": 28 },
+											"value": "NumberOfProducts"
+										}
+									]
+								},
+								"tableBody": [
+									{
+										"id": "8",
+										"location": { "line": 16, "column": 13 },
+										"cells": [
+											{
+												"location": { "line": 16, "column": 15 },
+												"value": "INTV_TC001"
+											},
+											{ "location": { "line": 16, "column": 28 }, "value": "6" }
+										]
+									}
+								]
+							}
+						]
+					}
+				}
+			]
+		},
+		"comments": [],
+		"uri": "/Users/peri/Documents/workspace/wdio-cucumber-e2e-test/test/features/inventory/Inventory.feature"
+	},
+	"pickle": {
+		"id": "17",
+		"uri": "/Users/peri/Documents/workspace/wdio-cucumber-e2e-test/test/features/inventory/Inventory.feature",
+		"astNodeIds": ["13", "8"],
+		"name": "INTV_TC001: Demo Inventory",
+		"language": "en",
+		"steps": [
+			{
+				"id": "14",
+				"text": "As a standard user I login to inventory web app",
+				"argument": {
+					"dataTable": {
+						"rows": [
+							{ "cells": [{ "value": "UserType" }, { "value": "Username" }] },
+							{
+								"cells": [{ "value": "StdUser" }, { "value": "standard_user" }]
+							},
+							{
+								"cells": [{ "value": "ProbUser" }, { "value": "problem_user" }]
+							},
+							{
+								"cells": [
+									{ "value": "PerfUser" },
+									{ "value": "performance_glitch_user" }
+								]
+							}
+						]
+					}
+				},
+				"astNodeIds": ["4", "8"],
+				"keyword": "Given "
+			},
+			{
+				"id": "15",
+				"text": "Inventory page should list 6",
+				"astNodeIds": ["5", "8"],
+				"keyword": "Then "
+			},
+			{
+				"id": "16",
+				"text": "Validate all products have valid price",
+				"astNodeIds": ["6", "8"],
+				"keyword": "Then "
+			}
+		],
+		"tags": [
+			{ "name": "@demo", "astNodeId": "10" },
+			{ "name": "@smoke", "astNodeId": "11" },
+			{ "name": "@debug", "astNodeId": "12" }
+		]
+	},
+	"testCaseStartedId": "39"
+}

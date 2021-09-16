@@ -2,7 +2,7 @@
 allure-results
 debug
 .DS_Store
-data
+data/api-res
 output.txt
 # Logs
 logs
