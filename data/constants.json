@@ -2,5 +2,8 @@
 	"REQRES": {
 		"GET_USERS": "/api/users",
 		"QUERY_PARAM": { "pages": 2 }
+	},
+	"DB_QUERIES":{
+		"GET_SALES_QUOTE": "SELECT TOP 1 * FROM [AdventureWorksDW2019].[dbo].[FactSalesQuota] WHERE [Date] ='2010-12-29 00:00:00.000'"
 	}
 }

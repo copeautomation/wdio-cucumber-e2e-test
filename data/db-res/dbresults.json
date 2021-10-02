@@ -1,0 +1,28 @@
+{
+    "recordsets": [
+        [
+            {
+                "SalesQuotaKey": 1,
+                "EmployeeKey": 272,
+                "DateKey": 20101229,
+                "CalendarYear": 2010,
+                "CalendarQuarter": 4,
+                "SalesAmountQuota": 28000,
+                "Date": "2010-12-29T00:00:00.000Z"
+            }
+        ]
+    ],
+    "recordset": [
+        {
+            "SalesQuotaKey": 1,
+            "EmployeeKey": 272,
+            "DateKey": 20101229,
+            "CalendarYear": 2010,
+            "CalendarQuarter": 4,
+            "SalesAmountQuota": 28000,
+            "Date": "2010-12-29T00:00:00.000Z"
+        }
+    ],
+    "output": {},
+    "rowsAffected": []
+}

@@ -4,6 +4,8 @@ import logger from "../../helper/logger"
 import reporter from "../../helper/reporter"
 import fs from "fs"
 import nopCommerceCustlistPage from "../../page-objects/nopcommerce.custlist.page"
+import dbHelper from "../../helper/dbHelper"
+import constants from "../../../data/constants.json"
 
 Then(/^Inventory page should (.*)\s?list (.*)$/, async function (negativeCheck, noOfProducts) {
     try {
@@ -97,4 +99,26 @@ Then(/^Verify if all users exist in customers list$/, async function () {
         throw err
     }
 
+})
+Then(/^Validate DB result$/, async function(){
+    try {
+        /**1. Execute DB query */
+        let testid = this.testid
+        let res
+        await browser.call(async function () {
+            // @ts-ignore
+            res = await dbHelper.executeQuery(testid, browser.config.sqlConfig, constants.DB_QUERIES.GET_SALES_QUOTE)
+        })
+        // @ts-ignore
+        reporter.addStep(this.testid, "debug", `DB response received, data: ${JSON.stringify(res)}`)
+
+        /** 3.Store results*/
+        let data = JSON.stringify(res, undefined, 4)
+        let filename = `${process.cwd()}/data/db-res/dbresults.json`
+        fs.writeFileSync(filename, data)
+        reporter.addStep(this.testid, "info", `DB response stored in json file`)
+    } catch (error) {
+        error.message = `${this.testid}: Failed at getting DB results, ${error.message}`
+        throw error
+    }
 })
