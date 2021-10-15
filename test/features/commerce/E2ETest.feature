@@ -5,7 +5,7 @@ Feature: Customer search
         Given Get list of users from reqres.in
         When An as Admin user login to nopcommerce site
         Then Verify if all users exist in customers list
-        Then Validate DB result
+        # Then Validate DB result
 
         Examples:
             | TestID    |
