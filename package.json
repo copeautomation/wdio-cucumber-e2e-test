@@ -4,11 +4,11 @@
   "description": "wdio e2e tests",
   "main": "index.js",
   "scripts": {
-    "test:debug": "set DEBUG=Y && set HEADLESS=N && npx wdio config/wdio.test.conf.ts --cucumberOpts.tagExpression='@demo' > output.txt",
-    "test:demo": "set DEBUG=N && set HEADLESS=N && npx wdio config/wdio.test.conf.ts --cucumberOpts.tagExpression='@demo'",
-    "test:smoke": "set DEBUG=N && set HEADLESS=Y &&npx wdio config/wdio.test.conf.ts --cucumberOpts.tagExpression='@smoke'",
-    "uat:demo": "set DEBUG=N && set HEADLESS=N && npx wdio config/wdio.uat.conf.ts --cucumberOpts.tagExpression='@demo'",
-    "uat:smoke": "set DEBUG=N && set HEADLESS=Y &&npx wdio config/wdio.uat.conf.ts --cucumberOpts.tagExpression='@smoke'"
+    "test:debug": "export DEBUG=Y && export HEADLESS=N && npx wdio config/wdio.test.conf.ts --cucumberOpts.tagExpression='@demo' > output.txt",
+    "test:demo": "export DEBUG=N && export HEADLESS=N && npx wdio config/wdio.test.conf.ts --cucumberOpts.tagExpression='@demo'",
+    "test:smoke": "export DEBUG=N && export HEADLESS=Y &&npx wdio config/wdio.test.conf.ts --cucumberOpts.tagExpression='@smoke'",
+    "uat:demo": "export DEBUG=N && export HEADLESS=N && npx wdio config/wdio.uat.conf.ts --cucumberOpts.tagExpression='@demo'",
+    "uat:smoke": "export DEBUG=N && export HEADLESS=Y &&npx wdio config/wdio.uat.conf.ts --cucumberOpts.tagExpression='@smoke'"
   },
   "keywords": [
     "wdio",
