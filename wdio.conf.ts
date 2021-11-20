@@ -55,11 +55,11 @@ export const config: WebdriverIO.Config = {
     //
     // If you have trouble getting all important capabilities together, check out the
     // Sauce Labs platform configurator - a great tool to configure your capabilities:
-    // https://docs.saucelabs.com/reference/platforms-configurator
+    // https://saucelabs.com/platform/platform-configurator
     //
     capabilities: [
         {
-
+    
         // maxInstances can get overwritten per capability. So if you have an in-house Selenium
         // grid with only 5 firefox instances available you can make sure that not more than
         // 5 instances get started at a time.
@@ -143,7 +143,7 @@ export const config: WebdriverIO.Config = {
     // your test setup with almost no effort. Unlike plugins, they don't add new
     // commands. Instead, they hook themselves up into the test process.
     services: ['chromedriver', 'geckodriver'],
-
+    
     // Framework you want to run your specs with.
     // The following are supported: Mocha, Jasmine, and Cucumber
     // see also: https://webdriver.io/docs/frameworks
@@ -203,7 +203,7 @@ export const config: WebdriverIO.Config = {
         // <boolean> Enable this config to treat undefined definitions as warnings.
         ignoreUndefinedDefinitions: false
     },
-
+    
     //
     // =====
     // Hooks
@@ -239,8 +239,9 @@ export const config: WebdriverIO.Config = {
      * @param {Object} config wdio configuration object
      * @param {Array.<Object>} capabilities list of capabilities details
      * @param {Array.<String>} specs List of spec file paths that are to be run
+     * @param {String} cid worker id (e.g. 0-0)
      */
-    // beforeSession: function (config, capabilities, specs) {
+    // beforeSession: function (config, capabilities, specs, cid) {
     // },
     /**
      * Gets executed before test execution begins. At this point you can access to all global
@@ -270,35 +271,38 @@ export const config: WebdriverIO.Config = {
     /**
      *
      * Runs before a Cucumber Scenario.
-     * @param {ITestCaseHookParameter} world world object containing information on pickle and test step
+     * @param {ITestCaseHookParameter} world    world object containing information on pickle and test step
+     * @param {Object}                 context  Cucumber World object
      */
-    beforeScenario: function (world) {
+    beforeScenario: function (world, context) { 
         let arr = world.pickle.name.split(/:/)
         // @ts-ignore
         if(arr.length > 0) browser.config.testid = arr[0]
         // @ts-ignore
         if(!browser.config.testid) throw Error(`Error getting testid for current scenario: ${world.pickle.name}`)
-
+        
     },
     /**
      *
      * Runs before a Cucumber Step.
      * @param {Pickle.IPickleStep} step     step data
      * @param {IPickle}            scenario scenario pickle
+     * @param {Object}             context  Cucumber World object
      */
-    // beforeStep: function (step, scenario) {
+    // beforeStep: function (step, scenario, context) {
     // },
     /**
      *
      * Runs after a Cucumber Step.
-     * @param {Pickle.IPickleStep} step     step data
-     * @param {IPickle}            scenario scenario pickle
-     * @param {Object}             result   results object containing scenario results
-     * @param {boolean}            result.passed   true if scenario has passed
-     * @param {string}             result.error    error stack if scenario failed
-     * @param {number}             result.duration duration of scenario in milliseconds
+     * @param {Pickle.IPickleStep} step             step data
+     * @param {IPickle}            scenario         scenario pickle
+     * @param {Object}             result           results object containing scenario results
+     * @param {boolean}            result.passed    true if scenario has passed
+     * @param {string}             result.error     error stack if scenario failed
+     * @param {number}             result.duration  duration of scenario in milliseconds
+     * @param {Object}             context          Cucumber World object
      */
-    afterStep: async function (step, scenario, result) {
+    afterStep: async function (step, scenario, result, context) {
         // Take screenshot if failed
         if(!result.passed){
             await browser.takeScreenshot()
@@ -306,14 +310,15 @@ export const config: WebdriverIO.Config = {
     },
     /**
      *
-     * Runs before a Cucumber Scenario.
-     * @param {ITestCaseHookParameter} world  world object containing information on pickle and test step
-     * @param {Object}                 result results object containing scenario results
-     * @param {boolean}                result.passed   true if scenario has passed
-     * @param {string}                 result.error    error stack if scenario failed
-     * @param {number}                 result.duration duration of scenario in milliseconds
+     * Runs after a Cucumber Scenario.
+     * @param {ITestCaseHookParameter} world            world object containing information on pickle and test step
+     * @param {Object}                 result           results object containing scenario results
+     * @param {boolean}                result.passed    true if scenario has passed
+     * @param {string}                 result.error     error stack if scenario failed
+     * @param {number}                 result.duration  duration of scenario in milliseconds
+     * @param {Object}                 context          Cucumber World object
      */
-    // afterScenario: function (world, result) {
+    // afterScenario: function (world, result, context) {
     // },
     /**
      *
@@ -326,7 +331,7 @@ export const config: WebdriverIO.Config = {
         allure.addEnvironment("Environment: ", browser.config.environment)
         allure.addEnvironment("Middleware: ", "SIT-EAI")
     },
-
+    
     /**
      * Runs after a WebdriverIO command gets executed
      * @param {String} commandName hook command name
