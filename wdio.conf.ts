@@ -289,8 +289,10 @@ export const config: WebdriverIO.Config = {
      * @param {IPickle}            scenario scenario pickle
      * @param {Object}             context  Cucumber World object
      */
-    // beforeStep: function (step, scenario, context) {
-    // },
+    beforeStep: function (step, scenario, context) {
+        if(browser.config.testid) context.testid = browser.config.testid
+
+    },
     /**
      *
      * Runs after a Cucumber Step.
