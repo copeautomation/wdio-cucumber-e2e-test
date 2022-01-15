@@ -10,7 +10,34 @@ export const config: WebdriverIO.Config = {
     // ====================
     // Runner Configuration
     // ====================
+    // 
     //
+    // =====================
+    // ts-node Configurations
+    // =====================
+    // 
+    // You can write tests using TypeScript to get autocompletion and type safety.
+    // You will need typescript and ts-node installed as devDependencies. 
+    // WebdriverIO will automatically detect if these dependencies are installed 
+    // and will compile your config and tests for you. 
+    // If you need to configure how ts-node runs please use the
+    // environment variables for ts-node or use wdio config's autoCompileOpts section.
+    //
+    
+    autoCompileOpts: {
+        autoCompile: true,
+        // see https://github.com/TypeStrong/ts-node#cli-and-programmatic-options
+        // for all available options
+        tsNodeOpts: {
+            transpileOnly: true,
+            project: 'tsconfig.json'
+        }
+        // tsconfig-paths is only used if "tsConfigPathsOpts" are provided, if you
+        // do please make sure "tsconfig-paths" is installed as dependency
+        //tsConfigPathsOpts: {
+        //    baseUrl: './'
+        //}
+    },
     //
     // ==================
     // Specify Test Files
@@ -186,14 +213,10 @@ export const config: WebdriverIO.Config = {
         dryRun: false,
         // <boolean> abort the run on first failure
         failFast: false,
-        // <string[]> (type[:path]) specify the output format, optionally supply PATH to redirect formatter output (repeatable)
-        format: ['pretty'],
         // <boolean> hide step definition snippets for pending steps
         snippets: true,
         // <boolean> hide source uris
         source: true,
-        // <string[]> (name) specify the profile to use
-        profile: [],
         // <boolean> fail if there are any undefined or pending steps
         strict: false,
         // <string> (expression) only execute the features or scenarios with tags matching the expression
@@ -274,7 +297,7 @@ export const config: WebdriverIO.Config = {
      * @param {ITestCaseHookParameter} world    world object containing information on pickle and test step
      * @param {Object}                 context  Cucumber World object
      */
-    beforeScenario: function (world, context) { 
+    beforeScenario: function (world, context) {
         let arr = world.pickle.name.split(/:/)
         // @ts-ignore
         if(arr.length > 0) browser.config.testid = arr[0]
@@ -291,7 +314,7 @@ export const config: WebdriverIO.Config = {
      */
     beforeStep: function (step, scenario, context) {
         if(browser.config.testid) context.testid = browser.config.testid
-
+        
     },
     /**
      *
@@ -306,7 +329,7 @@ export const config: WebdriverIO.Config = {
      */
     afterStep: async function (step, scenario, result, context) {
         // Take screenshot if failed
-        if(!result.passed){
+        if (!result.passed) {
             await browser.takeScreenshot()
         }
     },
