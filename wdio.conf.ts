@@ -5,25 +5,26 @@ import fs from "fs"
 dotenv.config()
 let headless = process.env.HEADLESS
 let debug = process.env.DEBUG
-export const config: WebdriverIO.Config = {
+import type { Options } from '@wdio/types'
+export const config: Options.Testrunner = {
     //
     // ====================
     // Runner Configuration
     // ====================
-    // 
+    //
     //
     // =====================
     // ts-node Configurations
     // =====================
-    // 
+    //
     // You can write tests using TypeScript to get autocompletion and type safety.
-    // You will need typescript and ts-node installed as devDependencies. 
-    // WebdriverIO will automatically detect if these dependencies are installed 
-    // and will compile your config and tests for you. 
+    // You will need typescript and ts-node installed as devDependencies.
+    // WebdriverIO will automatically detect if these dependencies are installed
+    // and will compile your config and tests for you.
     // If you need to configure how ts-node runs please use the
     // environment variables for ts-node or use wdio config's autoCompileOpts section.
     //
-    
+
     autoCompileOpts: {
         autoCompile: true,
         // see https://github.com/TypeStrong/ts-node#cli-and-programmatic-options
@@ -34,9 +35,9 @@ export const config: WebdriverIO.Config = {
         }
         // tsconfig-paths is only used if "tsConfigPathsOpts" are provided, if you
         // do please make sure "tsconfig-paths" is installed as dependency
-        //tsConfigPathsOpts: {
-        //    baseUrl: './'
-        //}
+        // tsConfigPathsOpts: {
+        //     baseUrl: './'
+        // }
     },
     //
     // ==================
@@ -192,14 +193,14 @@ export const config: WebdriverIO.Config = {
     // The only one supported by default is 'dot'
     // see also: https://webdriver.io/docs/dot-reporter
     reporters: ['spec',
-        ['allure',
-            {
-                outputDir: 'allure-results',
-                disableWebdriverStepsReporting: true,
-                useCucumberStepReporter: true
-            }
-        ]
-    ],
+    ['allure',
+        {
+            outputDir: 'allure-results',
+            disableWebdriverStepsReporting: true,
+            useCucumberStepReporter: true
+        }
+    ]
+],
     //
     // If you are using Cucumber you need to specify the location of your step definitions.
     cucumberOpts: {
@@ -251,10 +252,19 @@ export const config: WebdriverIO.Config = {
      * @param  {String} cid      capability id (e.g 0-0)
      * @param  {[type]} caps     object containing capabilities for session that will be spawn in the worker
      * @param  {[type]} specs    specs to be run in the worker process
-     * @param  {[type]} args     object that will be merged with the main configuration once worker is initialised
+     * @param  {[type]} args     object that will be merged with the main configuration once worker is initialized
      * @param  {[type]} execArgv list of string arguments passed to the worker process
      */
     // onWorkerStart: function (cid, caps, specs, args, execArgv) {
+    // },
+    /**
+     * Gets executed just after a worker process has exited.
+     * @param  {String} cid      capability id (e.g 0-0)
+     * @param  {Number} exitCode 0 - success, 1 - fail
+     * @param  {[type]} specs    specs to be run in the worker process
+     * @param  {Number} retries  number of retries used
+     */
+    // onWorkerEnd: function (cid, exitCode, specs, retries) {
     // },
     /**
      * Gets executed just before initialising the webdriver session and test framework. It allows you
@@ -355,7 +365,7 @@ export const config: WebdriverIO.Config = {
         // Add more env details
         allure.addEnvironment("Environment: ", browser.config.environment)
         allure.addEnvironment("Middleware: ", "SIT-EAI")
-    },
+         },
     
     /**
      * Runs after a WebdriverIO command gets executed
@@ -398,6 +408,6 @@ export const config: WebdriverIO.Config = {
     * @param {String} oldSessionId session ID of the old session
     * @param {String} newSessionId session ID of the new session
     */
-    //onReload: function(oldSessionId, newSessionId) {
-    //}
+    // onReload: function(oldSessionId, newSessionId) {
+    // }
 }
