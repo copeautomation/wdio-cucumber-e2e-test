@@ -1,10 +1,10 @@
 import winston from "winston"
 
 // Format console.log
-const consoleFormat = winston.format.printf(({ level, message
+const consoleFormat = winston.format.printf(({ level, message, timestamp
 }) => {
     const logLevel = winston.format.colorize().colorize(level, `${level.toUpperCase()}`)
-    return `[${logLevel}]: ${message}`
+    return `${timestamp} [${logLevel}]: ${message}`
 })
 // Logger
 let logger = winston.createLogger({
