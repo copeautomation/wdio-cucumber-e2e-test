@@ -1,0 +1,1 @@
+{"868c2af7e7da201d3b987d118858e97":{"statistic":{"failed":0,"broken":0,"skipped":0,"passed":1,"unknown":0,"total":1},"items":[{"uid":"7fa67fb44fb22f81","reportUrl":"https://copeautomation.github.io/wdio-cucumber-e2e-test/24//#testresult/7fa67fb44fb22f81","status":"passed","time":{"start":1660908052637,"stop":1660908064248,"duration":11611}}]}}
