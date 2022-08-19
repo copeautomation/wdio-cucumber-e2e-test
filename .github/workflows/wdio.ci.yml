@@ -3,7 +3,7 @@
 name: WDIO-CI
 on:
   push:
-    branches: [ master, release ]
+    branches: [ master, release, rel/feature/allure-gs-pages-2022-08-19 ]
   pull_request:
     branches: [ master, release]
   workflow_dispatch:
@@ -16,9 +16,9 @@ jobs:
       TEST_NOP_ADMIN_USERNAME: ${{secrets.TEST_NOP_ADMIN_USERNAME}}
       TEST_NOP_ADMIN_PASSWORD: ${{secrets.TEST_NOP_ADMIN_PASSWORD}}
     steps:
+      - uses: actions/checkout@v2
       - name: Install Chromium
         run: sudo apt-get install chromium-browser
-      - uses: actions/checkout@v2
       - name: Use Node.js
         uses: actions/setup-node@v1
         with:
@@ -27,3 +27,4 @@ jobs:
         run: npm install
       - name: Running smoke tests
         run: npm run test:smoke
+        
