@@ -1,0 +1,2 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"passed","Fri Aug 19 11:32:07 GMT 2022","Fri Aug 19 11:32:19 GMT 2022","11769","","Customer search","","Customer search","E2E_TC001: Search external customers","E2E_TC001: Search external customers",""
