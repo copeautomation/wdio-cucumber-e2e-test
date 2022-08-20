@@ -18,19 +18,22 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       
+      # Install chromium
       - name: Install Chromium
         run: sudo apt-get install chromium-browser
       
+      # Install node.js
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
-      
+      # Run tests
       - name: Install dependencies
         run: npm install
       - name: Running smoke tests
         run: npm run test:smoke
-        
+      
+      # Get allure report in github pages with history
       - name: Get Allure History
         uses: actions/checkout@v2
         if: always()
@@ -39,7 +42,7 @@ jobs:
           ref: gh-pages
           path: gh-pages
     
-      - name: Get Allure Report
+      - name: Get Allure Report Action
         uses: simple-elf/allure-report-action@master
         if: always()
         id: allure-report
