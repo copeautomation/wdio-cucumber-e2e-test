@@ -3,7 +3,7 @@
 name: WDIO-CI
 on:
   push:
-    branches: [ master, release ]
+    branches: [ master, release, rel/feature/allure-gs-pages-2022-08-19 ]
   pull_request:
     branches: [ master, release]
   workflow_dispatch:
@@ -22,7 +22,7 @@ jobs:
         run: sudo apt-get install chromium-browser
       
       - name: Use Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
           node-version: 16.x
       
