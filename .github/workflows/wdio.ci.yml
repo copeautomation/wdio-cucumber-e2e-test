@@ -18,9 +18,9 @@ jobs:
     steps:
       - name: Install Chromium
         run: sudo apt-get install chromium-browser
-      - uses: actions/checkout@v2
+      - uses: actions/checkout
       - name: Use Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node
         with:
           node-version: 16.x
       - name: Install dependencies
