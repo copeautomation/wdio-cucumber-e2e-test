@@ -1,11 +1,11 @@
 import { Then } from "@cucumber/cucumber";
 import chai from "chai";
-import logger from "../../helper/logger"
-import reporter from "../../helper/reporter"
+import logger from "../../helper/logger.js"
+import reporter from "../../helper/reporter.js"
 import fs from "fs"
-import nopCommerceCustlistPage from "../../page-objects/nopcommerce.custlist.page"
-import dbHelper from "../../helper/dbHelper"
-import constants from "../../../data/constants.json"
+import nopCommerceCustlistPage from "../../page-objects/nopcommerce.custlist.page.js"
+import dbHelper from "../../helper/dbHelper.js"
+import constants from "../../../data/constants.json" assert { type: "json" };
 
 Then(/^Inventory page should (.*)\s?list (.*)$/, async function (negativeCheck, noOfProducts) {
     try {
@@ -65,7 +65,7 @@ Then(/^Verify if all users exist in customers list$/, async function () {
     try {
         /**1. Navigate/select Customer options from left menu*/
         // @ts-ignore
-        await browser.url(`${browser.config.nopeCommerceBaseURL}/Admin/Customer/List`)
+        await browser.url(`${browser.options.nopeCommerceBaseURL}/Admin/Customer/List`)
         reporter.addStep(this.testid, "info", `Navigated to customer list screen...`)
 
         /** 2. Read API response from /data folder*/
@@ -107,7 +107,7 @@ Then(/^Validate DB result$/, async function(){
         let res
         await browser.call(async function () {
             // @ts-ignore
-            res = await dbHelper.executeQuery(testid, browser.config.sqlConfig, constants.DB_QUERIES.GET_SALES_QUOTE)
+            res = await dbHelper.executeQuery(testid, browser.options.sqlConfig, constants.DB_QUERIES.GET_SALES_QUOTE)
         })
         // @ts-ignore
         reporter.addStep(this.testid, "debug", `DB response received, data: ${JSON.stringify(res)}`)

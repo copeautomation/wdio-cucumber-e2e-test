@@ -1,5 +1,5 @@
 import request from "supertest"
-import reporter from "../helper/reporter"
+import reporter from "../helper/reporter.js"
 
 async function GET(testid: string, baseURL: string, endpoint: string, authToken: string, queryParam: object,) {
     if (!baseURL || !endpoint) {

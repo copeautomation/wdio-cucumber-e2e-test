@@ -11,33 +11,12 @@ export const config: Options.Testrunner = {
     // ====================
     // Runner Configuration
     // ====================
-    //
-    //
-    // =====================
-    // ts-node Configurations
-    // =====================
-    //
-    // You can write tests using TypeScript to get autocompletion and type safety.
-    // You will need typescript and ts-node installed as devDependencies.
-    // WebdriverIO will automatically detect if these dependencies are installed
-    // and will compile your config and tests for you.
-    // If you need to configure how ts-node runs please use the
-    // environment variables for ts-node or use wdio config's autoCompileOpts section.
-    //
-
+    // WebdriverIO supports running e2e tests as well as unit and component tests.
+    runner: 'local',
     autoCompileOpts: {
-        autoCompile: true,
-        // see https://github.com/TypeStrong/ts-node#cli-and-programmatic-options
-        // for all available options
         tsNodeOpts: {
-            transpileOnly: true,
-            project: 'tsconfig.json'
+            project: './tsconfig.json'
         }
-        // tsconfig-paths is only used if "tsConfigPathsOpts" are provided, if you
-        // do please make sure "tsconfig-paths" is installed as dependency
-        // tsConfigPathsOpts: {
-        //     baseUrl: './'
-        // }
     },
     //
     // ==================
@@ -57,7 +36,7 @@ export const config: Options.Testrunner = {
     //
     currentDt: new Date(),
     specs: [
-        './test/features/**/*.feature'
+        `${process.cwd()}/test/features/**/*.feature`
     ],
     // Patterns to exclude.
     exclude: [
@@ -91,6 +70,7 @@ export const config: Options.Testrunner = {
         // maxInstances can get overwritten per capability. So if you have an in-house Selenium
         // grid with only 5 firefox instances available you can make sure that not more than
         // 5 instances get started at a time.
+        maxInstances: 5,
         /**
          * Additional chrome options:
          * --headless
@@ -102,13 +82,12 @@ export const config: Options.Testrunner = {
          * binary=<location>
          * --auth-server-whitelist="_”
          */
-        maxInstances: 3,
         //
         browserName: 'chrome',
+        acceptInsecureCerts: true,
         "goog:chromeOptions": {
             args: headless.toUpperCase() === "Y" ? ["--disable-web-security", "--headless", "--disable-dev-shm-usage", "--no-sandbox", "--window-size=1920,1080"] : []
         },
-        acceptInsecureCerts: true,
         timeouts: { implicit: 10000, pageLoad: 20000, script: 30000 },
         // If outputDir is provided WebdriverIO can capture driver session logs
         // it is possible to configure which logTypes to include/exclude.
@@ -283,8 +262,12 @@ export const config: Options.Testrunner = {
      * @param {Array.<String>} specs        List of spec file paths that are to be run
      * @param {Object}         browser      instance of created browser/device session
      */
-    // before: function (capabilities, specs) {
-    // },
+    before: function (capabilities, specs) {
+        browser.options["environment"] = config.environment
+        browser.options["sauseDemoURL"] = config.sauseDemoURL
+        browser.options["reqresBaseURL"] = config.reqresBaseURL
+        browser.options["nopeCommerceBaseURL"] = config.nopeCommerceBaseURL
+    },
     /**
      * Runs before a WebdriverIO command gets executed.
      * @param {String} commandName hook command name
@@ -310,9 +293,9 @@ export const config: Options.Testrunner = {
     beforeScenario: function (world, context) {
         let arr = world.pickle.name.split(/:/)
         // @ts-ignore
-        if(arr.length > 0) browser.config.testid = arr[0]
+        if(arr.length > 0) browser.options.testid = arr[0]
         // @ts-ignore
-        if(!browser.config.testid) throw Error(`Error getting testid for current scenario: ${world.pickle.name}`)
+        if(!browser.options.testid) throw Error(`Error getting testid for current scenario: ${world.pickle.name}`)
         
     },
     /**
@@ -323,7 +306,7 @@ export const config: Options.Testrunner = {
      * @param {Object}             context  Cucumber World object
      */
     beforeStep: function (step, scenario, context) {
-        if(browser.config.testid) context.testid = browser.config.testid
+        if(browser.options.testid) context.testid = browser.options.testid
         
     },
     /**
@@ -363,7 +346,7 @@ export const config: Options.Testrunner = {
      */
     afterFeature: function (uri, feature) {
         // Add more env details
-        allure.addEnvironment("Environment: ", browser.config.environment)
+        allure.addEnvironment("Environment: ", browser.options.environment)
         allure.addEnvironment("Middleware: ", "SIT-EAI")
          },
     

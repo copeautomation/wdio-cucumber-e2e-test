@@ -1,5 +1,5 @@
 // import sql from "mssql/msnodesqlv8";
-import reporter from "../helper/reporter";
+import reporter from "../helper/reporter.js";
 
 /**
  * Executes given query

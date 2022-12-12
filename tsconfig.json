@@ -1,15 +1,15 @@
 {
     "compilerOptions": {
-        "target": "ES2019",
-        "module": "commonjs",
-        "resolveJsonModule": true,
-        "esModuleInterop": true,
-        "suppressExcessPropertyErrors": true,
+        "moduleResolution": "node",
+        "module": "ESNext",
         "types": [
             "node",
-            "webdriverio/async",
-            "@wdio/cucumber-framework",
-            "expect-webdriverio"
-        ]
+            "@wdio/globals/types",
+            "expect-webdriverio",
+            "@wdio/cucumber-framework"
+        ],
+        "target": "es2022",
+        "resolveJsonModule": true,
+        "esModuleInterop": true 
     }
 }

@@ -1,9 +1,9 @@
 import { Given } from "@cucumber/cucumber";
 import chai from "chai";
-import reporter from "../../helper/reporter"
-import sauseHomePage from "../../page-objects/sause.home.page"
-import constants from "../../../data/constants.json"
-import apiHelper from "../../helper/apiHelper"
+import reporter from "../../helper/reporter.js"
+import sauseHomePage from "../../page-objects/sause.home.page.js"
+import constants from "../../../data/constants.json" assert { type: "json" };
+import apiHelper from "../../helper/apiHelper.js"
 import fs from "fs"
 
 Given(/^As (a|an) (.*) user I login to inventory web app$/, async function (prefixTxt, userType, dataTable) {
@@ -11,7 +11,7 @@ Given(/^As (a|an) (.*) user I login to inventory web app$/, async function (pref
         reporter.addStep(this.testid, "info", "Login to sause demo..")
         let dt = dataTable.hashes()
         // @ts-ignore
-        await sauseHomePage.navigateTo(browser.config.sauseDemoURL)
+        await sauseHomePage.navigateTo(browser.options.sauseDemoURL)
         await sauseHomePage.loginToSauseApp(this.testid, process.env.TEST_STD_USERNAME, process.env.TEST_STD_PASSWORD)
     } catch (err) {
         err.message = `${this.testid}: Failed at login step, ${err.message}`
@@ -43,10 +43,10 @@ Given(/^Get list of (.*) from reqres.in$/, async function (endpointRef) {
         let res
         await browser.call(async function () {
             // @ts-ignore
-            res = await apiHelper.GET(testid, browser.config.reqresBaseURL, endpoint, "", constants.REQRES.QUERY_PARAM)
+            res = await apiHelper.GET(testid, browser.options.reqresBaseURL, endpoint, "", constants.REQRES.QUERY_PARAM)
         })
         // @ts-ignore
-        if (res.status !== 200) chai.expect.fail(`Failed getting users from :${browser.config.reqresBaseURL}/${endpoint}`)
+        if (res.status !== 200) chai.expect.fail(`Failed getting users from :${browser.options.reqresBaseURL}/${endpoint}`)
         reporter.addStep(this.testid, "debug", `API response received, data: ${JSON.stringify(res.body)}`)
 
         /** 3.Store results*/

@@ -1,6 +1,6 @@
 import { Given, When, Then } from "@cucumber/cucumber";
 import chai from "chai"
-import reporter from "../../helper/reporter"
+import reporter from "../../helper/reporter.js"
 
 
 Given(/^Google page is opened$/, async function () {

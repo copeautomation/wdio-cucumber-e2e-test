@@ -1,7 +1,7 @@
 import { When } from "@cucumber/cucumber";
 import chai from "chai"
-import reporter from "../../helper/reporter";
-import nopcommerceHomepage from "../../page-objects/nopcommerce.home.page"
+import reporter from "../../helper/reporter.js";
+import nopcommerceHomepage from "../../page-objects/nopcommerce.home.page.js"
 
 When(/^An as (.*) user login to nopcommerce site$/, async function (user) {
     if (!user) throw Error(`Given user: ${user} is not valid`)
@@ -11,7 +11,7 @@ When(/^An as (.*) user login to nopcommerce site$/, async function (user) {
         await nopcommerceHomepage.loginTonopCommerceWeb(
             this.testid,
             //@ts-ignore
-            browser.config.nopeCommerceBaseURL,
+            browser.options.nopeCommerceBaseURL,
             process.env[`TEST_NOP_${user}_USERNAME`],
             process.env[`TEST_NOP_${user}_PASSWORD`]
         )

@@ -1,6 +1,6 @@
-import Page from "./page"
+import Page from "./page.js"
 import chai from "chai"
-import reporter from "../helper/reporter"
+import reporter from "../helper/reporter.js"
 
 class CustList extends Page {
     constructor() {
