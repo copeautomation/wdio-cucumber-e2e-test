@@ -8,7 +8,6 @@
     "scripts": {
         "test:debug": "export DEBUG=Y && export HEADLESS=N && wdio run config/wdio.test.conf.ts --cucumberOpts.tagExpression='@demo' > output.txt",
         "test:demo": "export DEBUG=N && export HEADLESS=N && wdio run config/wdio.test.conf.ts --cucumberOpts.tagExpression='@demo'",
-        "wdio:demo": "export DEBUG=N && export HEADLESS=N && wdio run config/wdio.test.conf.ts --cucumberOpts.tagExpression='@demo'",
         "test:smoke": "export DEBUG=N&& export HEADLESS=Y&& wdio run config/wdio.test.conf.ts --cucumberOpts.tagExpression='@smoke'",
         "uat:demo": "export DEBUG=N && export HEADLESS=N && wdio run config/wdio.uat.conf.ts --cucumberOpts.tagExpression='@demo'",
         "uat:smoke": "export DEBUG=N && export HEADLESS=Y && wdio run config/wdio.uat.conf.ts --cucumberOpts.tagExpression='@smoke'",
@@ -32,7 +31,7 @@
         "@wdio/local-runner": "^8.0.10",
         "@wdio/spec-reporter": "^8.0.10",
         "chai": "^4.3.7",
-        "chromedriver": "^108.0.0",
+        "chromedriver": "^110.0.0",
         "dotenv": "^10.0.0",
         "geckodriver": "^3.2.0",
         "supertest": "^6.3.3",
