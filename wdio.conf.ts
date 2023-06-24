@@ -1,11 +1,5 @@
-// @ts-nocheck
-import dotenv from "dotenv"
-import allure from "@wdio/allure-reporter"
-import fs from "fs"
-dotenv.config()
-let headless = process.env.HEADLESS
-let debug = process.env.DEBUG
 import type { Options } from '@wdio/types'
+
 export const config: Options.Testrunner = {
     //
     // ====================
@@ -14,16 +8,20 @@ export const config: Options.Testrunner = {
     // WebdriverIO supports running e2e tests as well as unit and component tests.
     runner: 'local',
     autoCompileOpts: {
+        autoCompile: true,
         tsNodeOpts: {
-            project: './tsconfig.json'
+            project: './tsconfig.json',
+            transpileOnly: true
         }
     },
+    
+    
     //
     // ==================
     // Specify Test Files
     // ==================
     // Define which test specs should run. The pattern is relative to the directory
-    // from which `wdio` was called.
+    // of the configuration file being run.
     //
     // The specs are defined as an array of spec files (optionally using wildcards
     // that will be expanded). The test for each spec file will be run in a separate
@@ -34,9 +32,8 @@ export const config: Options.Testrunner = {
     // then the current working directory is where your `package.json` resides, so `wdio`
     // will be called from there.
     //
-    currentDt: new Date(),
     specs: [
-        `${process.cwd()}/test/features/**/*.feature`
+        './features/**/*.feature'
     ],
     // Patterns to exclude.
     exclude: [
@@ -64,44 +61,10 @@ export const config: Options.Testrunner = {
     // Sauce Labs platform configurator - a great tool to configure your capabilities:
     // https://saucelabs.com/platform/platform-configurator
     //
-    capabilities: [
-        {
-    
-        // maxInstances can get overwritten per capability. So if you have an in-house Selenium
-        // grid with only 5 firefox instances available you can make sure that not more than
-        // 5 instances get started at a time.
-        maxInstances: 5,
-        /**
-         * Additional chrome options:
-         * --headless
-         * --disable-dev-shm-usage
-         * --no-sandbox
-         * --window-size=1920,1080
-         * --disable-gpu
-         * --proxy-server=http://domain
-         * binary=<location>
-         * --auth-server-whitelist="_”
-         */
-        //
-        browserName: 'chrome',
-        acceptInsecureCerts: true,
-        "goog:chromeOptions": {
-            args: headless.toUpperCase() === "Y" ? ["--disable-web-security", "--headless", "--disable-dev-shm-usage", "--no-sandbox", "--window-size=1920,1080"] : []
-        },
-        timeouts: { implicit: 10000, pageLoad: 20000, script: 30000 },
-        // If outputDir is provided WebdriverIO can capture driver session logs
-        // it is possible to configure which logTypes to include/exclude.
-        // excludeDriverLogs: ['*'], // pass '*' to exclude all driver session logs
-        // excludeDriverLogs: ['bugreport', 'server'],
-    },
-    // {
-    //     maxInstances: 3,
-    //     //
-    //     browserName: 'firefox',
-    //     acceptInsecureCerts: true,
-    //     timeouts: { implicit: 10000, pageLoad: 20000, script: 30000 },
-    // }
-],
+    capabilities: [{
+        // capabilities for local browser web tests
+        browserName: 'chrome' // or "firefox", "microsoftedge", "safari"
+    }],
     //
     // ===================
     // Test Configurations
@@ -109,7 +72,7 @@ export const config: Options.Testrunner = {
     // Define all options that are relevant for the WebdriverIO instance here
     //
     // Level of logging verbosity: trace | debug | info | warn | error | silent
-    logLevel: debug.toUpperCase() === "Y" ?  'info' : 'error',
+    logLevel: 'info',
     //
     // Set specific log levels per logger
     // loggers:
@@ -149,7 +112,7 @@ export const config: Options.Testrunner = {
     // Services take over a specific job you don't want to take care of. They enhance
     // your test setup with almost no effort. Unlike plugins, they don't add new
     // commands. Instead, they hook themselves up into the test process.
-    services: ['chromedriver', 'geckodriver'],
+    services: ['chromedriver'],
     
     // Framework you want to run your specs with.
     // The following are supported: Mocha, Jasmine, and Cucumber
@@ -165,26 +128,19 @@ export const config: Options.Testrunner = {
     // Delay in seconds between the spec file retry attempts
     // specFileRetriesDelay: 0,
     //
-    // Whether or not retried specfiles should be retried immediately or deferred to the end of the queue
+    // Whether or not retried spec files should be retried immediately or deferred to the end of the queue
     // specFileRetriesDeferred: false,
     //
     // Test reporter for stdout.
     // The only one supported by default is 'dot'
     // see also: https://webdriver.io/docs/dot-reporter
-    reporters: ['spec',
-    ['allure',
-        {
-            outputDir: 'allure-results',
-            disableWebdriverStepsReporting: true,
-            useCucumberStepReporter: true
-        }
-    ]
-],
+    reporters: ['spec'],
+
     //
     // If you are using Cucumber you need to specify the location of your step definitions.
     cucumberOpts: {
         // <string[]> (file/dir) require files before executing features
-        require: ['./test/features/step-definitions/*.ts'],
+        require: ['./features/step-definitions/steps.ts'],
         // <boolean> show full backtrace for errors
         backtrace: false,
         // <string[]> ("extension:module") require files with the given EXTENSION after requiring MODULE (repeatable)
@@ -202,7 +158,7 @@ export const config: Options.Testrunner = {
         // <string> (expression) only execute the features or scenarios with tags matching the expression
         tagExpression: '',
         // <number> timeout for step definitions
-        timeout: 300000,
+        timeout: 60000,
         // <boolean> Enable this config to treat undefined definitions as warnings.
         ignoreUndefinedDefinitions: false
     },
@@ -217,41 +173,38 @@ export const config: Options.Testrunner = {
     // resolved to continue.
     /**
      * Gets executed once before all workers get launched.
-     * @param {Object} config wdio configuration object
+     * @param {object} config wdio configuration object
      * @param {Array.<Object>} capabilities list of capabilities details
      */
-    onPrepare: function (config, capabilities) {
-        if (process.env.RUNNER === "LOCAL" && fs.existsSync("./allure-results")) {
-            fs.rmdirSync("./allure-results", { recursive: true })
-        }
-    },
+    // onPrepare: function (config, capabilities) {
+    // },
     /**
      * Gets executed before a worker process is spawned and can be used to initialise specific service
      * for that worker as well as modify runtime environments in an async fashion.
-     * @param  {String} cid      capability id (e.g 0-0)
-     * @param  {[type]} caps     object containing capabilities for session that will be spawn in the worker
-     * @param  {[type]} specs    specs to be run in the worker process
-     * @param  {[type]} args     object that will be merged with the main configuration once worker is initialized
-     * @param  {[type]} execArgv list of string arguments passed to the worker process
+     * @param  {string} cid      capability id (e.g 0-0)
+     * @param  {object} caps     object containing capabilities for session that will be spawn in the worker
+     * @param  {object} specs    specs to be run in the worker process
+     * @param  {object} args     object that will be merged with the main configuration once worker is initialized
+     * @param  {object} execArgv list of string arguments passed to the worker process
      */
     // onWorkerStart: function (cid, caps, specs, args, execArgv) {
     // },
     /**
      * Gets executed just after a worker process has exited.
-     * @param  {String} cid      capability id (e.g 0-0)
-     * @param  {Number} exitCode 0 - success, 1 - fail
-     * @param  {[type]} specs    specs to be run in the worker process
-     * @param  {Number} retries  number of retries used
+     * @param  {string} cid      capability id (e.g 0-0)
+     * @param  {number} exitCode 0 - success, 1 - fail
+     * @param  {object} specs    specs to be run in the worker process
+     * @param  {number} retries  number of retries used
      */
     // onWorkerEnd: function (cid, exitCode, specs, retries) {
     // },
     /**
      * Gets executed just before initialising the webdriver session and test framework. It allows you
      * to manipulate configurations depending on the capability or spec.
-     * @param {Object} config wdio configuration object
+     * @param {object} config wdio configuration object
      * @param {Array.<Object>} capabilities list of capabilities details
      * @param {Array.<String>} specs List of spec file paths that are to be run
-     * @param {String} cid worker id (e.g. 0-0)
+     * @param {string} cid worker id (e.g. 0-0)
      */
     // beforeSession: function (config, capabilities, specs, cid) {
     // },
@@ -260,17 +213,13 @@ export const config: Options.Testrunner = {
      * variables like `browser`. It is the perfect place to define custom commands.
      * @param {Array.<Object>} capabilities list of capabilities details
      * @param {Array.<String>} specs        List of spec file paths that are to be run
-     * @param {Object}         browser      instance of created browser/device session
+     * @param {object}         browser      instance of created browser/device session
      */
-    before: function (capabilities, specs) {
-        browser.options["environment"] = config.environment
-        browser.options["sauseDemoURL"] = config.sauseDemoURL
-        browser.options["reqresBaseURL"] = config.reqresBaseURL
-        browser.options["nopeCommerceBaseURL"] = config.nopeCommerceBaseURL
-    },
+    // before: function (capabilities, specs) {
+    // },
     /**
      * Runs before a WebdriverIO command gets executed.
-     * @param {String} commandName hook command name
+     * @param {string} commandName hook command name
      * @param {Array} args arguments that command would receive
      */
     // beforeCommand: function (commandName, args) {
@@ -279,7 +228,7 @@ export const config: Options.Testrunner = {
      * Cucumber Hooks
      *
      * Runs before a Cucumber Feature.
-     * @param {String}                   uri      path to feature file
+     * @param {string}                   uri      path to feature file
      * @param {GherkinDocument.IFeature} feature  Cucumber feature object
      */
     // beforeFeature: function (uri, feature) {
@@ -288,81 +237,66 @@ export const config: Options.Testrunner = {
      *
      * Runs before a Cucumber Scenario.
      * @param {ITestCaseHookParameter} world    world object containing information on pickle and test step
-     * @param {Object}                 context  Cucumber World object
+     * @param {object}                 context  Cucumber World object
      */
-    beforeScenario: function (world, context) {
-        let arr = world.pickle.name.split(/:/)
-        // @ts-ignore
-        if(arr.length > 0) browser.options.testid = arr[0]
-        // @ts-ignore
-        if(!browser.options.testid) throw Error(`Error getting testid for current scenario: ${world.pickle.name}`)
-        
-    },
+    // beforeScenario: function (world, context) {
+    // },
     /**
      *
      * Runs before a Cucumber Step.
      * @param {Pickle.IPickleStep} step     step data
      * @param {IPickle}            scenario scenario pickle
-     * @param {Object}             context  Cucumber World object
+     * @param {object}             context  Cucumber World object
      */
-    beforeStep: function (step, scenario, context) {
-        if(browser.options.testid) context.testid = browser.options.testid
-        
-    },
+    // beforeStep: function (step, scenario, context) {
+    // },
     /**
      *
      * Runs after a Cucumber Step.
      * @param {Pickle.IPickleStep} step             step data
      * @param {IPickle}            scenario         scenario pickle
-     * @param {Object}             result           results object containing scenario results
+     * @param {object}             result           results object containing scenario results
      * @param {boolean}            result.passed    true if scenario has passed
      * @param {string}             result.error     error stack if scenario failed
      * @param {number}             result.duration  duration of scenario in milliseconds
-     * @param {Object}             context          Cucumber World object
+     * @param {object}             context          Cucumber World object
      */
-    afterStep: async function (step, scenario, result, context) {
-        // Take screenshot if failed
-        if (!result.passed) {
-            await browser.takeScreenshot()
-        }
-    },
+    // afterStep: function (step, scenario, result, context) {
+    // },
     /**
      *
      * Runs after a Cucumber Scenario.
      * @param {ITestCaseHookParameter} world            world object containing information on pickle and test step
-     * @param {Object}                 result           results object containing scenario results
+     * @param {object}                 result           results object containing scenario results
      * @param {boolean}                result.passed    true if scenario has passed
      * @param {string}                 result.error     error stack if scenario failed
      * @param {number}                 result.duration  duration of scenario in milliseconds
-     * @param {Object}                 context          Cucumber World object
+     * @param {object}                 context          Cucumber World object
      */
     // afterScenario: function (world, result, context) {
     // },
     /**
      *
      * Runs after a Cucumber Feature.
-     * @param {String}                   uri      path to feature file
+     * @param {string}                   uri      path to feature file
      * @param {GherkinDocument.IFeature} feature  Cucumber feature object
      */
-    afterFeature: function (uri, feature) {
-        // Add more env details
-        allure.addEnvironment("Environment: ", browser.options.environment)
-        allure.addEnvironment("Middleware: ", "SIT-EAI")
-         },
+    // afterFeature: function (uri, feature) {
+    // },
     
     /**
      * Runs after a WebdriverIO command gets executed
-     * @param {String} commandName hook command name
+     * @param {string} commandName hook command name
      * @param {Array} args arguments that command would receive
-     * @param {Number} result 0 - command success, 1 - command error
-     * @param {Object} error error object if any
+     * @param {number} result 0 - command success, 1 - command error
+     * @param {object} error error object if any
      */
     // afterCommand: function (commandName, args, result, error) {
     // },
     /**
      * Gets executed after all tests are done. You still have access to all global variables from
      * the test.
-     * @param {Number} result 0 - test pass, 1 - test fail
+     * @param {number} result 0 - test pass, 1 - test fail
      * @param {Array.<Object>} capabilities list of capabilities details
      * @param {Array.<String>} specs List of spec file paths that ran
      */
@@ -370,7 +304,7 @@ export const config: Options.Testrunner = {
     // },
     /**
      * Gets executed right after terminating the webdriver session.
-     * @param {Object} config wdio configuration object
+     * @param {object} config wdio configuration object
      * @param {Array.<Object>} capabilities list of capabilities details
      * @param {Array.<String>} specs List of spec file paths that ran
      */
@@ -379,8 +313,8 @@ export const config: Options.Testrunner = {
     /**
      * Gets executed after all workers got shut down and the process is about to exit. An error
      * thrown in the onComplete hook will result in the test run failing.
-     * @param {Object} exitCode 0 - success, 1 - fail
-     * @param {Object} config wdio configuration object
+     * @param {object} exitCode 0 - success, 1 - fail
+     * @param {object} config wdio configuration object
      * @param {Array.<Object>} capabilities list of capabilities details
      * @param {<Object>} results object containing test results
      */
@@ -388,8 +322,8 @@ export const config: Options.Testrunner = {
     // },
     /**
     * Gets executed when a refresh happens.
-    * @param {String} oldSessionId session ID of the old session
-    * @param {String} newSessionId session ID of the new session
+    * @param {string} oldSessionId session ID of the old session
+    * @param {string} newSessionId session ID of the new session
     */
     // onReload: function(oldSessionId, newSessionId) {
     // }
