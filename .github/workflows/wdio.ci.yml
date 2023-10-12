@@ -3,7 +3,7 @@
 name: WDIO-CI
 on:
   push:
-    branches: [ master, release]
+    branches: [ master, release, feature/wdio-upgrade-20231009]
   pull_request:
     branches: [ master, release]
   workflow_dispatch:

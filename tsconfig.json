@@ -2,14 +2,25 @@
     "compilerOptions": {
         "moduleResolution": "node",
         "module": "ESNext",
+        "target": "es2022",
         "types": [
             "node",
             "@wdio/globals/types",
             "expect-webdriverio",
             "@wdio/cucumber-framework"
         ],
-        "target": "es2022",
+        "skipLibCheck": true,
+        "noEmit": true,
+        "allowImportingTsExtensions": true,
         "resolveJsonModule": true,
-        "esModuleInterop": true 
-    }
+        "esModuleInterop":true,
+        "isolatedModules": true,
+        "strict": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "noFallthroughCasesInSwitch": true
+    },
+    "include": [
+        "test"
+    ]
 }
