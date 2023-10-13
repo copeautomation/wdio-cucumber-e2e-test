@@ -22,7 +22,7 @@
     "author": "Cope Automation",
     "license": "ISC",
     "devDependencies": {
-        "@types/chai": "^4.3.4",
+        "@types/chai": "^4.3.8",
         "@types/mssql": "^7.1.5",
         "@types/supertest": "^2.0.14",
         "@wdio/allure-reporter": "^8.17.0",
