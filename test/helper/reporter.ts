@@ -23,7 +23,7 @@ function addStep(testid: string, loglevel: string, msg: string, toAllure = true,
         if (loglevel === "warn") logger.warn(`[${testid}]: ${msg}`)
         if (loglevel === "error") {
             logger.error(`[${testid}]: ${msg}`)
-            allure.addStep(msg, {}, "failed") // Substep to fail if error
+            // allure.addStep(msg, {}, "failed") // Substep to fail if error
         } else {
             if (toAllure) allure.addStep(msg)
         }

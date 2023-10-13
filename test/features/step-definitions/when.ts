@@ -1,5 +1,4 @@
 import { When } from "@cucumber/cucumber";
-import chai from "chai"
 import reporter from "../../helper/reporter.js";
 import nopcommerceHomepage from "../../page-objects/nopcommerce.home.page.js"
 

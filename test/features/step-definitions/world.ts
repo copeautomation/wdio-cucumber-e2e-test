@@ -1,5 +1,4 @@
 import { setWorldConstructor } from "@cucumber/cucumber";
-import chai from "chai"
 
 class CustomWorld {
     testid: string
