@@ -3,6 +3,10 @@
         "moduleResolution": "node",
         "module": "ESNext",
         "target": "es2022",
+        "lib": [
+            "es2022",
+            "dom"
+        ],
         "types": [
             "node",
             "@wdio/globals/types",
@@ -13,13 +17,15 @@
         "noEmit": true,
         "allowImportingTsExtensions": true,
         "resolveJsonModule": true,
-        "esModuleInterop":true,
+        "esModuleInterop": true,
         "isolatedModules": true,
+        "strict": false,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
         "noFallthroughCasesInSwitch": true
     },
     "include": [
-        "test"
+        "test",
+        "wdio.conf.ts"
     ]
 }
