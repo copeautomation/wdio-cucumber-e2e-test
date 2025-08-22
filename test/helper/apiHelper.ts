@@ -5,8 +5,8 @@ async function GET(testid: string, baseURL: string, endpoint: string, authToken:
     if (!baseURL || !endpoint) {
         throw Error(`One of the given values baseURL: ${baseURL}, endpoint: ${endpoint} is not valid `)
     }
-    baseURL = baseURL.trim()
-    endpoint = endpoint.trim()
+    baseURL = baseURL.trim().replace(/\/+$/, "")
+    endpoint = "/" + endpoint.trim().replace(/^\/+/, "")
     reporter.addStep(testid, "info", `Making a GET to ${endpoint}`)
     try {
         return await request(baseURL)
