@@ -13,6 +13,7 @@ async function GET(testid: string, baseURL: string, endpoint: string, authToken:
             .get(endpoint)
             .query(queryParam)
             .auth(authToken, { type: 'bearer' })
+            .set("x-api-key", process.env.API_KEY)
             .set("Content-Type", "application/json")
             .set("Accept", "application/json")
     } catch (err) {

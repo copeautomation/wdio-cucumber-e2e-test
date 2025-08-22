@@ -1,6 +1,6 @@
 {
 	"REQRES": {
-		"GET_USERS": "/api/users",
+		"GET_USERS": "api/users",
 	"QUERY_PARAM": { "page": 2 }
 	},
 	"DB_QUERIES":{

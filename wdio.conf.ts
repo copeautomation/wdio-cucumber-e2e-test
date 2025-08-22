@@ -6,7 +6,7 @@ dotenv.config();
 let headless = process.env.HEADLESS;
 let debug = process.env.DEBUG;
 import type { Options } from "@wdio/types";
-export const config: Options.Testrunner = {
+export const config: WebdriverIO.Config = {
     //
     // ====================
     // Runner Configuration
